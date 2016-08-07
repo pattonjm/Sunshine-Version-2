@@ -4,5 +4,9 @@
     <string name="app_name">Sunshine</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="forecast_day">Today, June 24</string>
+    <string name="temp_f">21°</string>
+    <string name="temp_c">8°</string>
+    <string name="weather_type">Cloudy</string>
 
 </resources>
