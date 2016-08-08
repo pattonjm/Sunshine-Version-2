@@ -25,7 +25,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -73,6 +72,8 @@ public class ForecastFragment extends Fragment {
     ListView listView = (ListView) rootView.findViewById(R.id.listview_forecast);
     listView.setAdapter(adapter);
 
+    FetchWeatherTask weatherTask = new FetchWeatherTask();
+    weatherTask.execute("84606", getString(R.string.open_weather_map_key));
     return rootView;
   }
 
@@ -92,8 +93,14 @@ public class ForecastFragment extends Fragment {
     return super.onOptionsItemSelected(item);
   }
 
-  private static class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
+  private class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
     private final String LOG_TAG = FetchWeatherTask.class.getSimpleName();
+
+    @Override
+    protected void onPostExecute(String[] strings) {
+      adapter.clear();
+      adapter.addAll(Arrays.asList(strings));
+    }
 
     @Override
     protected String[] doInBackground(String... params) {
@@ -160,7 +167,6 @@ public class ForecastFragment extends Fragment {
           return null;
         }
         forecastJsonStr = builder.toString();
-        Log.d(LOG_TAG,forecastJsonStr);
       } catch (IOException e) {
         Log.e(LOG_TAG, "Error ", e);
         // If the code didn't successfully get the weather data, there's no point in attempting
@@ -276,10 +282,6 @@ public class ForecastFragment extends Fragment {
 
         highAndLow = formatHighLows(high, low);
         resultStrs[i] = day + " - " + description + " - " + highAndLow;
-      }
-
-      for (String s : resultStrs) {
-        Log.v(LOG_TAG, "Forecast entry: " + s);
       }
       return resultStrs;
 
