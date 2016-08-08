@@ -8,5 +8,6 @@
     <string name="temp_f">21°</string>
     <string name="temp_c">8°</string>
     <string name="weather_type">Cloudy</string>
+    <string name="action_refresh" translatable="false">Refresh</string>
 
 </resources>
