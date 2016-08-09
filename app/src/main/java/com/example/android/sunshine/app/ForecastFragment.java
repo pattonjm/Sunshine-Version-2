@@ -141,7 +141,6 @@ public class ForecastFragment extends Fragment {
         final String DAYS_PARAM = "cnt";
         final String APP_ID_PARAM = "APPID";
 
-        Builder uriBuilder = new Builder();
         Uri uri = Uri.parse(FORECAST_BASE_URL).buildUpon()
             .appendQueryParameter(QUERY_PARAM, params[0])
             .appendQueryParameter(FORMAT_PARAM, format)
